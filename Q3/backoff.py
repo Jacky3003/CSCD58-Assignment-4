@@ -1,4 +1,5 @@
 import random
+import sys
 # Class for each host, includes the backoff, retransmission times, and 
 # number of collisions for a host.
 
@@ -21,6 +22,10 @@ def reset() -> None:
         eachhost.trialtime = 0
         eachhost.numcollisions = 0
 
+# function to specify the seed of the PRNG generator
+def seed(i) -> None:
+    random.seed(i)
+
 # Runs the backoff simulation once, returns the time it took for one host to transmit
 # without any collisions.
 def runtime() -> int:
@@ -40,16 +45,30 @@ def runtime() -> int:
 
 if __name__ == "__main__":
 
-    # Check that the input is a valid integer value. 
-    # "numhosts" is the N value in this question.
-    numhosts = input("Enter the number of hosts for the simulation: ")
-    runamount = input("Enter the number of times you want the simulation to be run: ")
+    # Check that the inputs are valid values. 
+    numhosts = 0; runamount = 0; seedval = 0
+
+    if len(sys.argv) == 1:
+        numhosts = input("Enter the number of hosts for the simulation: ")
+        runamount = input("Enter the number of times you want the simulation to be run: ")
+        seedval = input("Enter the seed for the PRNG generator: ")
+    elif len(sys.argv) == 4:
+        numhosts = sys.argv[1]
+        runamount = sys.argv[2]
+        seedval = sys.argv[3]
+    else:
+        print("input: not enough or too much arguements given to the program.")
+        exit()
     try:
         numhosts = int(numhosts)
         runamount = int(runamount)
+        seedval = int(seedval)
     except:
         print("input: Not a valid number (try using an integer value).")
         exit()
+
+    # Initalize the seed for random
+    seed(seedval)
 
     # Create the number of hosts required and put them into a single list.
     global hostlist
