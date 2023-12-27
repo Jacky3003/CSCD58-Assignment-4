@@ -26,6 +26,11 @@
     Average finish time for 20 hosts and 1000 trials was 11.177.
     ```
 
+6. BONUS: You can also run ```backoff.py``` with exactly three arguments as follows (assuming your current directory has ```backoff.py```):
+    ```shell
+    python3 backoff.py [hostamount] [trialamount] [seednumber]
+    ```
+
 - NOTE: import random uses the Mersenne Twister as its core generator for the random numbers, read more on it in the official documentation:
     ```
     https://docs.python.org/3/library/random.html
